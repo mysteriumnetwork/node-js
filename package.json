@@ -1,6 +1,6 @@
 {
   "name": "mysterium-client-binary",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "description": "Mysterium Network client binaries",
   "keywords": [
     "mysterium",
@@ -15,8 +15,7 @@
     "download-mysterium-client-bin": "./download-mysterium-client"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "./download-mysterium-client"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mysterium Network",
   "license": "ISC",
