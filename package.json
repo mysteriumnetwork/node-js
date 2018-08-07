@@ -4,8 +4,7 @@
   "description": "Mysterium Network client binaries",
   "main": "index.js",
   "bin": {
-    "download-mysterium-client-bin": "./download-mysterium-client",
-    "mysterium_client": "./bin/mysterium_client"
+    "download-mysterium-client-bin": "./download-mysterium-client"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
