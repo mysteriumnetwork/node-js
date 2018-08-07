@@ -1,7 +1,15 @@
 {
-  "name": "mysterium-client-bin",
+  "name": "mysterium-client-binary",
   "version": "0.2.0",
   "description": "Mysterium Network client binaries",
+  "keywords": [
+    "mysterium",
+    "mysterium-network",
+    "client",
+    "blockchain",
+    "decentralized",
+    "vpn"
+  ],
   "main": "index.js",
   "bin": {
     "download-mysterium-client-bin": "./download-mysterium-client"
@@ -11,7 +19,7 @@
     "postinstall": "./download-mysterium-client"
   },
   "author": "Mysterium Network",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "ISC",
   "dependencies": {
     "extract-zip": "^1.6.7",
     "follow-redirects": "^1.5.2",
