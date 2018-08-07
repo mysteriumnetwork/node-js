@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+'use strict';
+const os = require('os');
+const path = require('path');
+
+const download = require('./index');
+
+const [,, ...args] = process.argv;
+const osType = args[0] || os.type();
+const osArch = args[1] || 'x64';
+
+const destination =  args[2] ? path.resolve(args[2]) : path.resolve(__dirname, 'bin');
+download(osType, osArch, destination);

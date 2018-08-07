@@ -1,0 +1,21 @@
+{
+  "name": "mysterium-client-bin",
+  "version": "0.2.0",
+  "description": "Mysterium Network client binaries",
+  "main": "index.js",
+  "bin": {
+    "download-mysterium-client-bin": "./download-mysterium-client",
+    "mysterium_client": "./bin/mysterium_client"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "./download-mysterium-client"
+  },
+  "author": "Mysterium Network",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "extract-zip": "^1.6.7",
+    "follow-redirects": "^1.5.2",
+    "targz": "^1.0.1"
+  }
+}
