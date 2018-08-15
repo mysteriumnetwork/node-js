@@ -2,10 +2,19 @@
 [Mysterium Node](https://github.com/MysteriumNetwork/node) client published on [npmjs.com](https://www.npmjs.com)
 
 ## Installation
-`$ npm i mysterium-client-binary`
+`$ npm i mysterium-client -g`
+
+in case you're using `yarn`, which doesn't support `postinstall` step
+you will need to run it manually:
+
+```
+$ yarn add mysterium-client
+$ yarn download-mysterium-client
+```
 
 ## Usage
+`$ mysterium_client --help`
 
-`$ ./node_modules/.bin/download-mysterium-client-bin windows x64 destination_dir`
+`$ download-mysterium-client windows destination_dir`
 
 Currently supporting x64 of _darwin_, _windows_, _linux_
