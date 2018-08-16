@@ -5,8 +5,8 @@ const path = require('path');
 
 const download = require('./index');
 
-if (process.env.MYSTERIUM_CLIENT_PREVENT_LOCAL === 'true') {
-  console.log('mysterium_client binary installation is prevented. please use download-mysterium-client now.');
+if (process.env.MYSTERIUM_CLIENT_PREVENT_LOCAL_INSTALL === 'true') {
+  console.log('Mysterium_client binary installation is prevented. Please use download-mysterium-client now.');
   process.exit();
 }
 
