@@ -1,3 +1,4 @@
 yarn*
 .idea
 bin/config
+mysterium-client-bin-*.tgz
