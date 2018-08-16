@@ -1,0 +1,3 @@
+#!/usr/bin/env node
+'use strict';
+console.log('Mysterium_client was not installed. Please use download-mysterium-client now.');

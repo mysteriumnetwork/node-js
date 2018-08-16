@@ -1,7 +1,7 @@
 {
-  "name": "mysterium-client-binary",
+  "name": "mysterium-client-bin",
   "version": "0.2.3",
-  "description": "Mysterium Network client binaries",
+  "description": "Mysterium Network client",
   "keywords": [
     "mysterium",
     "mysterium-network",
@@ -12,10 +12,12 @@
   ],
   "main": "index.js",
   "bin": {
-    "download-mysterium-client-bin": "./download-mysterium-client"
+    "download-mysterium-client": "./download-mysterium-client",
+    "mysterium_client": "./bin/mysterium_client"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "./download-mysterium-client"
   },
   "author": "Mysterium Network",
   "license": "ISC",
