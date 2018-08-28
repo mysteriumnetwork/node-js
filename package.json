@@ -20,7 +20,7 @@
     "postinstall": "./download-mysterium-client"
   },
   "author": "Mysterium Network",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "extract-zip": "^1.6.7",
     "follow-redirects": "^1.5.2",
