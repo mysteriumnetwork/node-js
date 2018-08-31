@@ -1,34 +1,47 @@
-# Mysterium Client
-[Mysterium Node](https://github.com/MysteriumNetwork/node) client published on [npmjs.com](https://www.npmjs.com)
+# Mysterium Client Binary Downloader
+[Mysterium Node](https://github.com/MysteriumNetwork/node) client binary downloader
 
 ## Installation
-`$ npm i mysterium-client-bin -g`
+
+#### Per project
+```sh
+$ npm i mysterium-client-bin
+```
 
 or
 
-`$ yarn add mysterium-client-bin`
+```sh
+$ yarn add mysterium-client-bin
+```
 
-in case you're using *yarn*, which doesn't support *postinstall* step
-you will need to run it manually:
+#### Globally
+```sh
+npm i mysterium-client-bin -g
+```
+
+or
 
 ```sh
-yarn add mysterium-client
+yarn global add mysterium-client-bin
+```
+
+Unfortunately *yarn* doesn't support the *postinstall* hook, therefore you will need to download the binaries manually:
+
+```sh
 yarn download-mysterium-client
 ```
 
-You might also like to download binaries for other OS:
+We currently support x64 versions of _darwin_, _windows_ and _linux_. To download for a specific platform, run the following:
 
 ```sh
-download-mysterium-client windows destination_dir
+yarn download-mysterium-client <platform> <destination_dir (optinal)>
 ```
 
-Currently supporting x64 of _darwin_, _windows_, _linux_
-
 ## Usage
-In case you include *mysterium-client-bin* in your dependencies, you would be able
-to run the binary from *./node_modules/.bin/mysterium_client*
+To run the binary from your project root:
 
 ```sh
+// ./node_modules/.bin/mysterium_client
 $(npm bin)/mysterium_client
 ```
 
@@ -38,7 +51,9 @@ or
 yarn mysterium_client
 ```
 
-If you installed it globally with `$ npm i mysterium-client-bin -g` then it should appear in your path:
+If you installed it globally, it should appear in your $PATH:
 
-`$ mysterium_client --help`
+```sh
+$ mysterium_client --help
+```
 
