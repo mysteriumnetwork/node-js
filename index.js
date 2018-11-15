@@ -8,7 +8,7 @@ const pjson = require('./package.json');
 const version = pjson.version;
 
 const urlBase = 'https://github.com/MysteriumNetwork/node/releases/download/';
-const binaryName = 'mysterium_client';
+const binaryName = 'myst';
 
 const getFileName = function (osPathPart, archPathPart, extension) {
   return binaryName + '_' + osPathPart + '_' + archPathPart + extension
