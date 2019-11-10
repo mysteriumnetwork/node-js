@@ -12,7 +12,7 @@ const binaryName = 'myst';
 
 const getFileName = function (osPathPart, archPathPart, extension) {
   return binaryName + '_' + osPathPart + '_' + archPathPart + extension
-}
+};
 
 const getDownloadInfo = function (version, osType, architecture) {
   osType = osType.toLowerCase();
@@ -37,10 +37,14 @@ const getDownloadInfo = function (version, osType, architecture) {
 let download = function (url, dest, cb) {
   let file = fs.createWriteStream(dest);
   https.get(url, function (response) {
-    response.pipe(file);
     file.on('finish', function () {
       file.close(cb);
     });
+    if (response.statusCode >= 400) {
+      if (cb) cb(new Error(`Unsuccessful HTTP status: ${url} ${response.statusCode} ${response.statusMessage}`));
+      return
+    }
+    response.pipe(file);
   }).on('error', function (err) {
     fs.unlink(dest);
     if (cb) cb(err);
@@ -63,14 +67,14 @@ module.exports = function (osType, architecture, destination) {
   const {url, filename} = getDownloadInfo(version, osType, architecture);
   download(url, filename, function (err) {
     if (err) return console.log(err);
-    console.log('downloaded', url);
+    console.log('Downloaded', url);
     const format = osType.includes('windows') ? 'zip' : 'tar.gz';
     unpack(filename, destination, format, function (err) {
       if (err) return console.error(err);
-      console.log('unpacked to ', destination);
+      console.log('Unpacked to ', destination);
       fs.unlink(filename, (err) => {
         if (err) return console.error(err);
-        console.log('deleted', filename);
+        console.log('Deleted', filename);
       })
     })
   });
