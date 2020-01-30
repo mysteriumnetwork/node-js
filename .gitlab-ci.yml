@@ -1,0 +1,17 @@
+stages:
+  - publish
+
+variables:
+  BUILD_TAG: $CI_COMMIT_TAG
+
+publish-npm:
+  stage: publish
+  only: [tags]
+  tags: [docker]
+  image:
+    name: node:lts-alpine
+  script:
+    - echo '//registry.npmjs.org/:_authToken=${NPM_PUBLISH_TOKEN}'>.npmrc
+    - sed -i -e "s/0.0.0-dev/$BUILD_TAG/g" package.json
+    - cat package.json
+    - npm publish --access public
