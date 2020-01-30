@@ -7,7 +7,7 @@ const unzip = require('extract-zip');
 const pjson = require('./package.json');
 const version = pjson.version;
 
-const urlBase = 'https://github.com/MysteriumNetwork/node/releases/';
+const urlBase = 'https://github.com/MysteriumNetwork/node/releases';
 const binaryName = 'myst';
 
 const getFileName = function (osPathPart, archPathPart, extension) {
@@ -27,10 +27,10 @@ const getDownloadInfo = function (version, osType, architecture) {
     default: throw new Error('Unsupported os type: ' + osType)
   }
   filename = getFileName(osPathPart, archPathPart, extension);
-  if (version == "0.0.0-dev") {
-    url = urlBase + "latest/download/" + filename
+  if (version === "0.0.0-dev") {
+    url = `${urlBase}/latest/download/${filename}`
   } else {
-    url = urlBase + "download/" + version + "/" + filename
+    url = `${urlBase}/download/${version}/${filename}`
   }
   return {
     url: url,
