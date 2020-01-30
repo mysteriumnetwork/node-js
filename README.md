@@ -1,5 +1,5 @@
-# Mysterium Client Binary Downloader
-[Mysterium Node](https://github.com/MysteriumNetwork/node) client binary downloader
+# Mysterium Binary Downloader
+[Mysterium Node](https://github.com/MysteriumNetwork/node) binary downloader
 
 ## Installation
 
@@ -41,19 +41,18 @@ yarn download-mysterium-client <platform> <destination_dir (optinal)>
 To run the binary from your project root:
 
 ```sh
-// ./node_modules/.bin/mysterium_client
-$(npm bin)/mysterium_client
+// ./node_modules/.bin/myst
+$(npm bin)/myst
 ```
 
 or
 
 ```sh
-yarn mysterium_client
+yarn myst
 ```
 
 If you installed it globally, it should appear in your $PATH:
 
 ```sh
-$ mysterium_client --help
+$ myst --help
 ```
-

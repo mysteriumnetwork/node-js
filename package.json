@@ -1,6 +1,6 @@
 {
   "name": "mysterium-client-bin",
-  "version": "0.14.1",
+  "version": "0.0.0-dev",
   "description": "Mysterium Network client",
   "keywords": [
     "mysterium",
@@ -12,12 +12,12 @@
   ],
   "main": "index.js",
   "bin": {
-    "download-mysterium-client": "./download-mysterium-client",
-    "mysterium_client": "./bin/mysterium_client"
+    "download-myst": "./download-myst",
+    "myst": "./bin/myst"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "./download-mysterium-client"
+    "postinstall": "./download-myst"
   },
   "author": "Mysterium Network",
   "license": "MIT",
