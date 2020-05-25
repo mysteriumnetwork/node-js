@@ -11,12 +11,15 @@
     "vpn"
   ],
   "main": "index.js",
+  "files": [
+    "index.js",
+    "package.jspn",
+    "download-myst"
+  ],
   "bin": {
-    "download-myst": "./download-myst",
-    "myst": "./bin/myst"
+    "download-myst": "./download-myst"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "./download-myst"
   },
   "author": "Mysterium Network",
