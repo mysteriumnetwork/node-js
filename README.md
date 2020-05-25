@@ -5,24 +5,24 @@
 
 #### Per project
 ```sh
-$ npm i mysterium-client-bin
+$ npm i @mysteriumnetwork/node
 ```
 
 or
 
 ```sh
-$ yarn add mysterium-client-bin
+$ yarn add @mysteriumnetwork/node
 ```
 
 #### Globally
 ```sh
-npm i mysterium-client-bin -g
+npm i @mysteriumnetwork/node -g
 ```
 
 or
 
 ```sh
-yarn global add mysterium-client-bin
+yarn global add @mysteriumnetwork/node
 ```
 
 Unfortunately *yarn* doesn't support the *postinstall* hook, therefore you will need to download the binaries manually:

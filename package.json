@@ -1,7 +1,7 @@
 {
-  "name": "mysterium-client-bin",
+  "name": "@mysteriumnetwork/node",
   "version": "0.0.0-dev.1",
-  "description": "Mysterium Network client",
+  "description": "Mysterium Network node",
   "keywords": [
     "mysterium",
     "mysterium-network",
@@ -20,6 +20,10 @@
   },
   "scripts": {
     "postinstall": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mysteriumnetwork/node-js.git"
   },
   "author": "Mysterium Network",
   "license": "MIT",
