@@ -8,7 +8,8 @@ const https = require('follow-redirects').https;
 const targz = require('targz');
 const unzip = require('extract-zip');
 
-const URL_BASE = 'https://github.com/mysteriumnetwork/node/releases';
+const REPO_RELEASES = 'https://github.com/mysteriumnetwork/node';
+const REPO_SNAPSHOTS = 'https://github.com/mysteriumnetwork/node-builds';
 const BINARY_NAME = 'myst';
 // Mapping between Node's `process.platform` to Golang's
 const PLATFORM_MAPPING = {
@@ -41,10 +42,10 @@ const getDownloadInfo = function () {
   let version = pjson.version;
 
   let url;
-  if (version === "0.0.0-dev") {
-    url = `${URL_BASE}/latest/download/${filename}`
+  if (version === "0.0.0-dev.1") {
+    url = `${REPO_SNAPSHOTS}/releases/latest/download/${filename}`
   } else {
-    url = `${URL_BASE}/download/${version}/${filename}`
+    url = `${REPO_RELEASES}/releases/download/${version}/${filename}`
   }
   return {
     url: url,
