@@ -28,13 +28,13 @@ yarn global add mysterium-client-bin
 Unfortunately *yarn* doesn't support the *postinstall* hook, therefore you will need to download the binaries manually:
 
 ```sh
-yarn download-mysterium-client
+yarn myst-download
 ```
 
 We currently support x64 versions of _darwin_, _windows_ and _linux_. To download for a specific platform, run the following:
 
 ```sh
-yarn download-mysterium-client <platform> <destination_dir (optinal)>
+yarn myst-download <platform> <destination_dir (optinal)>
 ```
 
 ## Usage
