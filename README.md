@@ -34,7 +34,7 @@ yarn myst-download
 We currently support x64 versions of _darwin_, _windows_ and _linux_. To download for a specific platform, run the following:
 
 ```sh
-yarn myst-download <platform> <destination_dir (optinal)>
+yarn myst-download <destination_dir (optinal)>
 ```
 
 ## Usage

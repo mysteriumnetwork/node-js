@@ -8,34 +8,43 @@ const https = require('follow-redirects').https;
 const targz = require('targz');
 const unzip = require('extract-zip');
 
-const urlBase = 'https://github.com/mysteriumnetwork/node/releases';
-const binaryName = 'myst';
-
-const getFileName = function (osPathPart, archPathPart, extension) {
-  return binaryName + '_' + osPathPart + '_' + archPathPart + extension
+const URL_BASE = 'https://github.com/mysteriumnetwork/node/releases';
+const BINARY_NAME = 'myst';
+// Mapping between Node's `process.platform` to Golang's
+const PLATFORM_MAPPING = {
+  "darwin": "darwin",
+  "linux": "linux",
+  "win32": "windows",
+};
+// Mapping from Node's `process.arch` to Golang's `$GOARCH`
+const ARCH_MAPPING = {
+  "ia32": "386",
+  "x64": "amd64",
+  "arm": "arm"
 };
 
-const getDownloadInfo = function (osType, architecture) {
-  const pjson = require('./package.json');
-  const version = pjson.version;
-
-  osType = osType.toLowerCase();
-  let osPathPart, archPathPart, extension, filename;
-  if (architecture !== 'x64') throw new Error('Unsupported architecture: ' + architecture);
-  archPathPart = 'amd64';
-  switch (osType) {
-    case 'linux':
-    case 'darwin': extension = '.tar.gz'; osPathPart = osType.toLowerCase(); break;
-    case 'windows':
-    case 'windows_nt': extension = '.zip'; osPathPart = 'windows'; break;
-    default: throw new Error('Unsupported os type: ' + osType)
+const getDownloadInfo = function () {
+  if (!(os.platform in PLATFORM_MAPPING)) {
+    throw new Error("Unsupported OS platform: " + os.platform);
   }
-  filename = getFileName(osPathPart, archPathPart, extension);
+  let platform = PLATFORM_MAPPING[os.platform];
+
+  if (!(os.arch in ARCH_MAPPING)) {
+    throw new Error("Unsupported OS architecture: " + os.arch);
+  }
+  let arch = ARCH_MAPPING[os.arch];
+
+  let extension = platform === 'windows' ? '.zip' : '.tar.gz';
+  let filename = BINARY_NAME + '_' + platform + '_' + arch + extension;
+
+  let pjson = require('./package.json');
+  let version = pjson.version;
+
   let url;
   if (version === "0.0.0-dev") {
-    url = `${urlBase}/latest/download/${filename}`
+    url = `${URL_BASE}/latest/download/${filename}`
   } else {
-    url = `${urlBase}/download/${version}/${filename}`
+    url = `${URL_BASE}/download/${version}/${filename}`
   }
   return {
     url: url,
@@ -73,13 +82,12 @@ const unpack = function (path, dest, format, cb) {
   }, cb)
 };
 
-const install = function (osType, architecture, destination) {
-  const {url, filename} = getDownloadInfo(osType, architecture);
+const install = function (destination) {
+  const {url, filename} = getDownloadInfo();
   download(url, filename, function (err) {
     if (err) return console.log(err);
-    console.log('Downloaded', url);
-    const format = osType.includes('windows') ? 'zip' : 'tar.gz';
-    unpack(filename, destination, format, function (err) {
+    console.log('Downloaded'  , url);
+    unpack(filename, destination, path.extname(filename), function (err) {
       if (err) return console.error(err);
       console.log('Unpacked to ', destination);
       fs.unlink(filename, (err) => {
@@ -91,8 +99,5 @@ const install = function (osType, architecture, destination) {
 };
 
 const [,, ...args] = process.argv;
-const osType = args[0] || os.type();
-const osArch = 'x64';
 const destination =  args[1] ? path.resolve(args[1]) : path.resolve(__dirname, './bin');
-
-install(osType, osArch, destination);
+install(destination);
