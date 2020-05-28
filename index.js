@@ -72,8 +72,8 @@ let download = function (url, dest, cb) {
 };
 
 
-const unpack = function (path, dest, format, cb) {
-  if (format === 'zip') {
+const unpack = function (path, dest, extension, cb) {
+  if (extension === '.zip') {
     unzip(path, {dir: dest}, cb);
     return
   }
@@ -84,11 +84,11 @@ const unpack = function (path, dest, format, cb) {
 };
 
 const install = function (destination) {
-  const {url, filename} = getDownloadInfo();
+  const {url, filename, extension} = getDownloadInfo();
   download(url, filename, function (err) {
     if (err) return console.log(err);
     console.log('Downloaded'  , url);
-    unpack(filename, destination, path.extname(filename), function (err) {
+    unpack(filename, destination, extension, function (err) {
       if (err) return console.error(err);
       console.log('Unpacked to ', destination);
       fs.unlink(filename, (err) => {
