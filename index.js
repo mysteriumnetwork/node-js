@@ -42,7 +42,7 @@ const getDownloadInfo = function () {
   let version = pjson.version;
 
   let url;
-  if (version === "0.0.0-dev.1") {
+  if (version === "0.0.0-dev.2") {
     url = `${REPO_SNAPSHOTS}/releases/latest/download/${filename}`
   } else {
     url = `${REPO_RELEASES}/releases/download/${version}/${filename}`
