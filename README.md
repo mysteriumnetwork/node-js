@@ -1,4 +1,5 @@
 # Mysterium Binary Downloader
+
 [Mysterium Node](https://github.com/MysteriumNetwork/node) binary downloader
 
 ## Installation
