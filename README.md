@@ -1,6 +1,11 @@
-# Mysterium Binary Downloader
+# Mysterium Node binary downloader
 
-[Mysterium Node](https://github.com/MysteriumNetwork/node) binary downloader
+[Mysterium Node](https://github.com/MysteriumNetwork/node) binary downloader downloads binary assets needed to run a Mysterium Node.
+
+Useful links:
+
+- [Javascript SDK](https://github.com/mysteriumnetwork/mysterium-vpn-js) for controlling a running Mysterium Node through API
+- [Mysterium VPN Desktop client](https://github.com/mysteriumnetwork/mysterium-vpn-desktop) - reference implementation
 
 ## Installation
 
