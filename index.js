@@ -40,7 +40,7 @@ const getDownloadInfo = function () {
 
   let url;
   switch (version) {
-    case "0.0.0-snapshot":
+    case "0.0.0-snapshot.1":
       url = `https://github.com/mysteriumnetwork/node-builds/releases/latest/download/${filename}`
           break
     case "0.0.0-testnet3":
