@@ -12,6 +12,6 @@ publish-npm:
     name: node:lts-alpine
   script:
     - npm config set '//registry.npmjs.org/:_authToken' "${NPM_PUBLISH_TOKEN}"
-    - sed -i -e "s/0.0.0-dev.2/$BUILD_TAG/g" package.json
+    - sed -i -e "s/0.0.0-snapshot/$BUILD_TAG/g" package.json
     - cat package.json
     - npm publish --access public

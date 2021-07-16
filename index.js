@@ -7,9 +7,8 @@ const fs = require('fs');
 const https = require('follow-redirects').https;
 const targz = require('targz');
 const unzip = require('extract-zip');
+const packageJson = require('./package.json')
 
-const REPO_RELEASES = 'https://github.com/mysteriumnetwork/node';
-const REPO_SNAPSHOTS = 'https://github.com/mysteriumnetwork/node-builds';
 const BINARY_NAME = 'myst';
 // Mapping between Node's `process.platform` to Golang's
 const PLATFORM_MAPPING = {
@@ -37,21 +36,20 @@ const getDownloadInfo = function () {
 
   let extension = platform === 'windows' ? '.zip' : '.tar.gz';
   let filename = BINARY_NAME + '_' + platform + '_' + arch + extension;
-
-  let pjson = require('./package.json');
-  let version = pjson.version;
+  let version = packageJson.version;
 
   let url;
-  if (version === "0.0.0-dev.2") {
-    url = `${REPO_SNAPSHOTS}/releases/latest/download/${filename}`
-  } else {
-    url = `${REPO_RELEASES}/releases/download/${version}/${filename}`
+  switch (version) {
+    case "0.0.0-snapshot":
+      url = `https://github.com/mysteriumnetwork/node-builds/releases/latest/download/${filename}`
+          break
+    case "0.0.0-testnet3":
+      url = `https://github.com/mysteriumnetwork/nightly/releases/latest/download/${filename}`
+          break
+    default:
+        url = `https://github.com/mysteriumnetwork/node/releases/download/${version}/${filename}`
   }
-  return {
-    url: url,
-    filename,
-    extension
-  }
+  return { url, filename, extension }
 };
 
 let download = function (url, dest, cb) {
