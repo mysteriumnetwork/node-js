@@ -43,7 +43,7 @@ const getDownloadInfo = function () {
     case "0.0.0-snapshot.1":
       url = `https://github.com/mysteriumnetwork/node-builds/releases/latest/download/${filename}`
           break
-    case "0.0.0-testnet3":
+    case "0.0.0-mainnet":
       url = `https://github.com/mysteriumnetwork/nightly/releases/latest/download/${filename}`
           break
     default:
