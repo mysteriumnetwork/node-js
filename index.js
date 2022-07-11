@@ -20,7 +20,8 @@ const PLATFORM_MAPPING = {
 const ARCH_MAPPING = {
   "ia32": "386",
   "x64": "amd64",
-  "arm": "arm"
+  "arm": "arm",
+  "arm64": "arm64",
 };
 
 const getDownloadInfo = function () {
