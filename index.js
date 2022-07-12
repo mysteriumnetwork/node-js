@@ -7,7 +7,8 @@ const fs = require('fs');
 const https = require('follow-redirects').https;
 const targz = require('targz');
 const unzip = require('extract-zip');
-const packageJson = require('./package.json')
+const semver = require('semver');
+const packageJson = require('./package.json');
 
 const BINARY_NAME = 'myst';
 // Mapping between Node's `process.platform` to Golang's
@@ -43,12 +44,15 @@ const getDownloadInfo = function () {
   switch (version) {
     case "0.0.0-snapshot.1":
       url = `https://github.com/mysteriumnetwork/node-builds/releases/latest/download/${filename}`
-          break
+      break
     case "0.0.0-mainnet":
       url = `https://github.com/mysteriumnetwork/nightly/releases/latest/download/${filename}`
-          break
+      break
     default:
-        url = `https://github.com/mysteriumnetwork/node/releases/download/${version}/${filename}`
+      // Allows releasing additional versions of this package for the same node version, e.g.:
+      // 2.9.2-p1 (node-js) -> 2.9.2 (node)
+      let nodeVersion = semver.coerce(version).version;
+      url = `https://github.com/mysteriumnetwork/node/releases/download/${nodeVersion}/${filename}`
   }
   return { url, filename, extension }
 };

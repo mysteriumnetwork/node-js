@@ -33,6 +33,7 @@
   "dependencies": {
     "extract-zip": "^2.0.0",
     "follow-redirects": "^1.5.2",
+    "semver": "^7.3.7",
     "targz": "^1.0.1"
   }
 }
