@@ -57,50 +57,52 @@ const getDownloadInfo = function () {
   return { url, filename, extension }
 };
 
-let download = function (url, dest, cb) {
-  let file = fs.createWriteStream(dest);
-  https.get(url, function (response) {
-    file.on('finish', function () {
-      file.close(cb);
-    });
-    if (response.statusCode >= 400) {
-      if (cb) cb(new Error(`Unsuccessful HTTP status: ${url} ${response.statusCode} ${response.statusMessage}`));
-      return
-    }
-    response.pipe(file);
-  }).on('error', function (err) {
-    fs.unlinkSync(dest);
-    if (cb) cb(err);
-  });
+const download = async function (url, dest) {
+  const file = fs.createWriteStream(dest);
+  return new Promise((resolve, reject) => {
+    https.get(url, response => {
+      file.on('finish', () => file.close(() => resolve(dest)))
+      if (response.statusCode >= 400) {
+        reject(new Error(`Unsuccessful HTTP status: ${url} ${response.statusCode} ${response.statusMessage}`))
+      }
+      response.pipe(file)
+    }).on('error', err => {
+      fs.unlinkSync(dest)
+      reject(err)
+    })
+  })
 };
 
-
-const unpack = function (path, dest, extension, cb) {
+const unpack = async function (path, dest, extension) {
   if (extension === '.zip') {
-    unzip(path, {dir: dest}, cb);
+    return unzip(path, {dir: dest});
+  }
+  return new Promise(resolve => {
+    targz.decompress({
+      src: path,
+      dest
+    }, () => {
+      resolve()
+    })
+  })
+};
+
+async function install(destination) {
+  const {url, filename, extension} = getDownloadInfo();
+  try {
+    await download(url, filename)
+    console.log(`Downloaded ${url} to ${filename}`)
+    await unpack(filename, destination, extension)
+    console.log(`Unpacked to ${destination}`);
+    fs.unlink(filename, (err) => {
+      if (err) return console.error(err);
+      console.log('Deleted', filename);
+    })
+  } catch (err) {
+    console.error(`Failed to install:`, err)
     return
   }
-  targz.decompress({
-    src: path,
-    dest
-  }, cb)
-};
-
-const install = function (destination) {
-  const {url, filename, extension} = getDownloadInfo();
-  download(url, filename, function (err) {
-    if (err) return console.log(err);
-    console.log('Downloaded'  , url);
-    unpack(filename, destination, extension, function (err) {
-      if (err) return console.error(err);
-      console.log('Unpacked to ', destination);
-      fs.unlink(filename, (err) => {
-        if (err) return console.error(err);
-        console.log('Deleted', filename);
-      })
-    })
-  });
-};
+}
 
 const [,, ...args] = process.argv;
 const destination =  args[1] ? path.resolve(args[1]) : path.resolve(__dirname, './bin');

@@ -28,7 +28,7 @@
   "author": "Mysterium Network",
   "license": "MIT",
   "engines": {
-    "node": ">=10"
+    "node": ">=16"
   },
   "dependencies": {
     "extract-zip": "^2.0.0",
