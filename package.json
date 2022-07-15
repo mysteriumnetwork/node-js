@@ -20,7 +20,7 @@
     "myst-download": "lib/postinstall.js"
   },
   "scripts": {
-    "postinstall": "node lib/postinstall.js",
+    "postinstall": "node -e \"if (require('fs').existsSync('./lib/postinstall.js')){process.exit(5)} \" || node lib/postinstall.js",
     "lint": "eslint src",
     "build": "tsc"
   },
