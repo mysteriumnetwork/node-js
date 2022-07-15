@@ -6,6 +6,10 @@
  */
 import path from "path"
 
+import semver from "semver"
+
+import packageJson from "../package.json"
+
 export type Arch = "x64" | "arm" | "arm64" | string
 export type DownloadDescriptor = {
     platform: NodeJS.Platform
@@ -40,3 +44,5 @@ export const mysteriumSupervisorBin = (platform: NodeJS.Platform, arch: Arch) =>
     const bin = platform === "win32" ? "myst_supervisor.exe" : "myst_supervisor"
     return path.join(parentDir(), "bin", platform, arch, bin)
 }
+
+export const nodeVersion = () => semver.coerce(packageJson.version).version
