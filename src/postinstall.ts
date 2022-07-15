@@ -10,6 +10,8 @@ import fs, { mkdirSync } from "fs"
 import fetch from "node-fetch"
 import unzip from "extract-zip"
 import targz from "targz"
+import ProgressBar from "progress"
+import semver from "semver"
 
 import packageJson from "../package.json"
 
@@ -39,29 +41,39 @@ const unpack = async function (filename: string) {
 
 async function postinstall() {
     const packageVersion = packageJson.version
-    const repository = packageJson.version === "0.0.0-snapshot.1" ? repositories.snapshot : repositories.release
+    const repository = packageVersion === "0.0.0-snapshot.1" ? repositories.snapshot : repositories.release
+    const nodeVersion = semver.coerce(packageVersion).version
+
+    console.log(`Downloading Mysterium Node (${repository == repositories.release ? nodeVersion : "snapshot"})`)
 
     for (const download of downloads) {
-        const url = repository(packageVersion, download.filename)
-        console.log("Downloading: ", url)
+        const url = repository(nodeVersion, download.filename)
         const res = await fetch(url)
         if (res.status == 404) {
             console.error("File not found")
             continue
         }
+        const contentLength = parseInt(res.headers.get("Content-Length"), 10)
+        const bar = new ProgressBar(`${download.platform}/${download.arch} \t :bar :percent \t ETA: :etas`, {
+            complete: "█",
+            incomplete: "░",
+            width: 40,
+            total: contentLength,
+        })
         const filename = await new Promise<string>((resolve, reject) => {
             const destDir = path.join("bin", download.platform, download.arch)
             mkdirSync(destDir, { recursive: true })
             const destPath = path.join(destDir, download.filename)
             const dest = fs.createWriteStream(destPath)
             res.body.pipe(dest)
+            res.body.on("data", (chunk) => {
+                bar.tick(chunk.length)
+            })
             res.body.on("end", () => resolve(destPath))
             dest.on("error", reject)
         })
-        console.log("Unpacking: ", filename)
         await unpack(filename)
         fs.unlinkSync(filename)
-        console.log(`Success (${download.platform}/${download.arch})`)
     }
 }
 
