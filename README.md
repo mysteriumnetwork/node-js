@@ -19,7 +19,7 @@ or
 $ yarn add @mysteriumnetwork/node
 ```
 
-After installing the package, Mysterium Node binaries will be available at `node_modules/@mysteriumnetwork/node/bin`.  
+After installing the package, Mysterium Node binaries will be available at `node_modules/@mysteriumnetwork/node/bin/${platform}/${arch}`.  
 You can use `postinstall` hook to move them to a desired location, e.g.:
 
 ```
@@ -29,7 +29,9 @@ You can use `postinstall` hook to move them to a desired location, e.g.:
   },
 ```
 
-We currently support x64 versions of _darwin_, _windows_ and _linux_.
+We currently support the following platforms/architectures:
+- x64: windows, linux, macOS
+- arm64: linux, macOS
 
 ## Usage
 

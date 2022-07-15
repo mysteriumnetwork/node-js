@@ -1,0 +1,34 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "ignorePatterns": [
+    "src/typings.d.ts",
+    "lib/**"
+  ],
+  "plugins": [
+    "header",
+    "import"
+  ],
+  "rules": {
+    "react/prop-types": "off",
+    "header/header": [2, "block", [
+      "*",
+      {"pattern": " * Copyright \\(c\\) \\d{4} BlockDev AG", "template": " * Copyright (c) 2022 BlockDev AG"},
+      " *",
+      " * This source code is licensed under the MIT license found in the",
+      " * LICENSE file in the root directory of this source tree.",
+      " "
+    ]],
+    "import/order": ["error", {
+      "newlines-between": "always"
+    }]
+  }
+}

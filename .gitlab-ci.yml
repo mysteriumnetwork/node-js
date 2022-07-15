@@ -1,17 +1,28 @@
 stages:
+  - build
   - publish
 
 variables:
   BUILD_TAG: $CI_COMMIT_TAG
 
+image:
+  name: node:lts-alpine
+before_script:
+  - sed -i -e "s/0.0.0-snapshot.1/$BUILD_TAG/g" package.json
+  - yarn
+
+build:
+  stage: build
+  tags: [docker]
+  script: yarn build
+  artifacts:
+    paths:
+      - lib/
+
 publish-npm:
   stage: publish
   only: [tags]
   tags: [docker]
-  image:
-    name: node:lts-alpine
   script:
     - npm config set '//registry.npmjs.org/:_authToken' "${NPM_PUBLISH_TOKEN}"
-    - sed -i -e "s/0.0.0-snapshot.1/$BUILD_TAG/g" package.json
-    - cat package.json
     - npm publish --access public
