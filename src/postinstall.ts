@@ -54,16 +54,17 @@ async function postinstall() {
             continue
         }
         const contentLength = parseInt(res.headers.get("Content-Length"), 10)
-        const bar = new ProgressBar(`${download.platform}/${download.arch} \t :bar :percent \t ETA: :etas`, {
+        const destDir = path.join("bin", download.os, download.arch)
+        mkdirSync(destDir, { recursive: true })
+        const destPath = path.join(destDir, download.filename)
+
+        const bar = new ProgressBar(`${destDir.padEnd(15, " ")} \t :bar :percent \t ETA: :etas`, {
             complete: "█",
             incomplete: "░",
             width: 40,
             total: contentLength,
         })
         const filename = await new Promise<string>((resolve, reject) => {
-            const destDir = path.join("bin", download.platform, download.arch)
-            mkdirSync(destDir, { recursive: true })
-            const destPath = path.join(destDir, download.filename)
             const dest = fs.createWriteStream(destPath)
             res.body.pipe(dest)
             res.body.on("data", (chunk) => {
