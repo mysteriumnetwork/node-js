@@ -33,7 +33,6 @@
   "dependencies": {
     "extract-zip": "^2.0.0",
     "node-fetch": "^2.6.7",
-    "progress": "^2.0.3",
     "semver": "^7.3.7",
     "targz": "^1.0.1"
   },

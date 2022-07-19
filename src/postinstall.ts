@@ -10,7 +10,6 @@ import fs, { mkdirSync } from "fs"
 import fetch from "node-fetch"
 import unzip from "extract-zip"
 import targz from "targz"
-import ProgressBar from "progress"
 import semver from "semver"
 
 import packageJson from "../package.json"
@@ -53,23 +52,14 @@ async function postinstall() {
             console.error("File not found")
             continue
         }
-        const contentLength = parseInt(res.headers.get("Content-Length"), 10)
         const destDir = path.join("bin", download.os, download.arch)
         mkdirSync(destDir, { recursive: true })
         const destPath = path.join(destDir, download.filename)
 
-        const bar = new ProgressBar(`${destDir.padEnd(15, " ")} \t :bar :percent \t ETA: :etas`, {
-            complete: "█",
-            incomplete: "░",
-            width: 40,
-            total: contentLength,
-        })
+        console.log(`Downloading: ${destPath}`)
         const filename = await new Promise<string>((resolve, reject) => {
             const dest = fs.createWriteStream(destPath)
             res.body.pipe(dest)
-            res.body.on("data", (chunk) => {
-                bar.tick(chunk.length)
-            })
             res.body.on("end", () => resolve(destPath))
             dest.on("error", reject)
         })
