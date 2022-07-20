@@ -10,7 +10,7 @@ import semver from "semver"
 
 import packageJson from "../package.json"
 
-export type OS = "windows" | "mac" | "linux"
+export type OS = "win" | "mac" | "linux"
 export type Arch = "x64" | "arm" | "arm64" | string
 export type DownloadDescriptor = {
     os: OS
@@ -23,7 +23,7 @@ export const downloads: DownloadDescriptor[] = [
     { os: "mac", arch: "arm64", filename: "myst_darwin_arm64.tar.gz" },
     { os: "linux", arch: "x64", filename: "myst_linux_amd64.tar.gz" },
     { os: "linux", arch: "arm", filename: "myst_linux_arm.tar.gz" },
-    { os: "windows", arch: "x64", filename: "myst_windows_amd64.zip" },
+    { os: "win", arch: "x64", filename: "myst_windows_amd64.zip" },
 ]
 
 export type Repository = (version: string, filename: string) => string
@@ -39,7 +39,7 @@ const parentDir = () => path.resolve(__dirname, "..")
 export const platformToOS = (platform: NodeJS.Platform): OS => {
     switch (platform) {
         case "win32":
-            return "windows"
+            return "win"
         case "darwin":
             return "mac"
         case "linux":
@@ -51,13 +51,13 @@ export const platformToOS = (platform: NodeJS.Platform): OS => {
 
 export const mysteriumNodeBin = (platform: NodeJS.Platform, arch: Arch) => {
     const os = platformToOS(platform)
-    const executablePath = os === "windows" ? "myst.exe" : "myst"
+    const executablePath = os === "win" ? "myst.exe" : "myst"
     return path.join(parentDir(), "bin", os, arch, executablePath)
 }
 
 export const mysteriumSupervisorBin = (platform: NodeJS.Platform, arch: Arch) => {
     const os = platformToOS(platform)
-    const executablePath = os === "windows" ? "myst_supervisor.exe" : "myst_supervisor"
+    const executablePath = os === "win" ? "myst_supervisor.exe" : "myst_supervisor"
     return path.join(parentDir(), "bin", os, arch, executablePath)
 }
 
